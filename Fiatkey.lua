@@ -1,7 +1,6 @@
 debugX = true
 
 local Players = game:GetService("Players")
-local TeleportService = game:GetService("TeleportService")
 local player = Players.LocalPlayer
 
 local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
@@ -41,7 +40,7 @@ Tab:CreateButton({
 
 		task.wait(2)
 		loadstring(game:HttpGet(
-			"https://github.com/FIAT258/fiathub2/blob/main/code.lua",
+			"https://raw.githubusercontent.com/FIAT258/fiathub2/main/code.lua",
 			true
 		))()
 
