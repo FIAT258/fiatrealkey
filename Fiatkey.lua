@@ -7,7 +7,7 @@ local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
 
 local Window = Rayfield:CreateWindow({
 	Name = "Key System",
-	LoadingTitle = "Key System",
+	LoadingTitle = "Key System by fiat",
 	LoadingSubtitle = "FIAT HUB",
 	Theme = "Default",
 	KeySystem = false
@@ -19,7 +19,7 @@ local inputKey = ""
 
 Tab:CreateInput({
 	Name = "Digite sua Key",
-	PlaceholderText = "EX: ABC-130-XYZ",
+	PlaceholderText = "pege em baixo",
 	RemoveTextAfterFocusLost = false,
 	Callback = function(text)
 		inputKey = text
