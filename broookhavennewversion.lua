@@ -11,9 +11,7 @@ local Window =
 Library:MakeWindow({
 
 Title = "Lorenzo hub---brookhaven",
-
 SubTitle = "by lorenzo and JX1",
-
 ScriptFolder = "LorenzoHub"
 
 })
@@ -29,8 +27,7 @@ KeyCode = Enum.KeyCode.LeftControl
 
 Minimizer:CreateMobileMinimizer({
 
-Image = "rbxassetid://91117931532624",
-
+Image = "rbxassetid://0",
 BackgroundColor3 = Color3.fromRGB(0,0,0)
 
 })
@@ -54,7 +51,6 @@ local MainTab =
 Window:MakeTab({
 
 Title = "Main",
-
 Icon = "Home"
 
 })
@@ -65,7 +61,7 @@ Icon = "Home"
 
 local selectedPlayer = nil
 
-local function playerList()
+local function getPlayers()
 
 local t = {}
 
@@ -86,8 +82,7 @@ local PlayerDropdown =
 MainTab:AddDropdown({
 
 Name = "players",
-
-Options = playerList(),
+Options = getPlayers(),
 
 Callback = function(v)
 
@@ -101,13 +96,18 @@ end
 
 Players.PlayerAdded:Connect(function()
 
-PlayerDropdown:Refresh(playerList())
+PlayerDropdown:Refresh(
+getPlayers()
+)
 
 end)
 
+
 Players.PlayerRemoving:Connect(function()
 
-PlayerDropdown:Refresh(playerList())
+PlayerDropdown:Refresh(
+getPlayers()
+)
 
 end)
 
@@ -176,7 +176,7 @@ end
 })
 
 --------------------------------------------------
--- FLING PLAYER (logica intacta)
+-- FLING PLAYER
 --------------------------------------------------
 
 MainTab:AddButton({
@@ -197,7 +197,6 @@ ReplicatedStorage
 :WaitForChild("1Too1l")
 :InvokeServer(unpack(args))
 
-
 local TOOL_NAME = "Couch"
 
 local ativo = true
@@ -210,7 +209,6 @@ CFrame.new(
 521392544,
 46955772
 )
-
 
 local function getTool()
 
@@ -226,7 +224,6 @@ return backpack[TOOL_NAME]
 end
 
 end
-
 
 local function garantirTool()
 
@@ -249,13 +246,11 @@ ReplicatedStorage
 :WaitForChild("1Too1l")
 :InvokeServer(unpack(args))
 
-repeat task.wait()
-until getTool()
+repeat task.wait() until getTool()
 
 codigoExecutado = true
 
 end
-
 
 local function equiparSempre()
 
@@ -276,7 +271,6 @@ end
 
 end
 
-
 local function sentou(plr)
 
 local char = plr and plr.Character
@@ -291,7 +285,6 @@ end
 return false
 
 end
-
 
 local function pararTudo()
 
@@ -313,7 +306,6 @@ char:FindFirstChild("HumanoidRootPart")
 if root and posicaoOriginal then
 root.CFrame = posicaoOriginal
 end
-
 
 local args = {
 "ClearAllTools"
@@ -342,21 +334,16 @@ char:FindFirstChildOfClass("Humanoid")
 
 if not root or not humanoid then return end
 
-
 if not posicaoOriginal then
 posicaoOriginal = root.CFrame
 end
 
-
 garantirTool()
-
 equiparSempre()
-
 
 local alvo = selectedPlayer
 
 if not alvo then return end
-
 
 local alvoRoot =
 alvo.Character and
@@ -364,13 +351,11 @@ alvo.Character:FindFirstChild("HumanoidRootPart")
 
 if not alvoRoot then return end
 
-
 root.CFrame =
 root.CFrame:Lerp(
 alvoRoot.CFrame,
 0.8
 )
-
 
 root.CFrame =
 root.CFrame *
@@ -381,7 +366,6 @@ math.rad(math.random(-900,900)),
 math.rad(math.random(-900,900))
 
 )
-
 
 if sentou(alvo) then
 
@@ -408,7 +392,7 @@ end
 })
 
 --------------------------------------------------
--- BLACK HOLE (LOGICA ANTIGA COMPLETA)
+-- BLACK HOLE PLAYER
 --------------------------------------------------
 
 if not getgenv().Network then
@@ -479,7 +463,6 @@ CenterPart.Anchored = true
 CenterPart.CanCollide = false
 CenterPart.Transparency = 1
 
-
 local Attachment1 =
 Instance.new("Attachment")
 
@@ -498,7 +481,6 @@ and v.Name ~= "Handle"
 
 then
 
-
 for _, obj in ipairs(v:GetChildren()) do
 
 if
@@ -514,14 +496,11 @@ end
 
 end
 
-
 if v:FindFirstChild("Attachment") then
 v.Attachment:Destroy()
 end
 
-
 v.CanCollide = false
-
 
 local Torque =
 Instance.new("Torque")
@@ -531,24 +510,25 @@ Vector3.new(100000,100000,100000)
 
 Torque.Parent = v
 
-
 local AlignPosition =
 Instance.new("AlignPosition")
 
-AlignPosition.MaxForce = math.huge
-AlignPosition.MaxVelocity = math.huge
-AlignPosition.Responsiveness = 200
+AlignPosition.MaxForce =
+math.huge
 
+AlignPosition.MaxVelocity =
+math.huge
+
+AlignPosition.Responsiveness =
+200
 
 local Attachment2 =
 Instance.new("Attachment")
 
 Attachment2.Parent = v
 
-
 Torque.Attachment0 =
 Attachment2
-
 
 AlignPosition.Attachment0 =
 Attachment2
@@ -558,7 +538,6 @@ Attachment1
 
 AlignPosition.Parent = v
 
-
 Network.RetainPart(v)
 
 end
@@ -567,9 +546,7 @@ end
 
 
 local blackHoleActive = false
-
 local followConnection
-
 local DescendantAddedConnection
 
 
@@ -584,7 +561,6 @@ character:WaitForChild(
 "HumanoidRootPart"
 )
 
-
 for _, v in ipairs(
 Workspace:GetDescendants()
 ) do
@@ -592,7 +568,6 @@ Workspace:GetDescendants()
 ForcePart(v)
 
 end
-
 
 DescendantAddedConnection =
 Workspace.DescendantAdded:Connect(function(v)
@@ -602,7 +577,6 @@ ForcePart(v)
 end
 
 end)
-
 
 followConnection =
 RunService.RenderStepped:Connect(function()
@@ -643,15 +617,9 @@ if not selectedPlayer then return end
 blackHoleActive = v
 
 if v then
-
-startBlackHole(
-selectedPlayer
-)
-
+startBlackHole(selectedPlayer)
 else
-
 stopBlackHole()
-
 end
 
 end
@@ -659,14 +627,13 @@ end
 })
 
 --------------------------------------------------
--- CONFIG
+-- CONFIG TAB
 --------------------------------------------------
 
 local ConfigTab =
 Window:MakeTab({
 
 Title = "Config",
-
 Icon = "Settings"
 
 })
@@ -677,10 +644,8 @@ local jump = 50
 ConfigTab:AddSlider({
 
 Name = "speed",
-
 Min = 16,
 Max = 200,
-
 Default = 16,
 
 Callback = function(v)
@@ -689,14 +654,11 @@ end
 
 })
 
-
 ConfigTab:AddSlider({
 
 Name = "jump",
-
 Min = 50,
 Max = 200,
-
 Default = 50,
 
 Callback = function(v)
@@ -705,10 +667,10 @@ end
 
 })
 
-
 RunService.RenderStepped:Connect(function()
 
-local char = LocalPlayer.Character
+local char =
+LocalPlayer.Character
 
 if char then
 
@@ -726,15 +688,17 @@ end
 
 end)
 
-
 ConfigTab:AddToggle({
 
 Name = "no gravity",
 
 Callback = function(v)
 
-Workspace.Gravity =
-v and 0 or 196.2
+if v then
+Workspace.Gravity = 0
+else
+Workspace.Gravity = 196.2
+end
 
 end
 
@@ -744,11 +708,15 @@ end
 -- FLY
 --------------------------------------------------
 
+local flying = false
+
 ConfigTab:AddToggle({
 
 Name = "fly",
 
 Callback = function(v)
+
+flying = v
 
 local char =
 LocalPlayer.Character
@@ -759,7 +727,6 @@ local root =
 char:FindFirstChild("HumanoidRootPart")
 
 if not root then return end
-
 
 if v then
 
@@ -773,9 +740,10 @@ Vector3.new(math.huge,math.huge,math.huge)
 
 bv.Parent = root
 
-
 RunService:BindToRenderStep(
+
 "fly",
+
 Enum.RenderPriority.Character.Value,
 
 function()
@@ -787,8 +755,10 @@ local move =
 char.Humanoid.MoveDirection
 
 bv.Velocity =
+
 (cam.CFrame.LookVector * move.Z
 + cam.CFrame.RightVector * move.X)
+
 * 60
 
 end)
@@ -808,48 +778,13 @@ end
 })
 
 --------------------------------------------------
--- ANTI LAG
---------------------------------------------------
-
-local antiLag = false
-
-ConfigTab:AddToggle({
-
-Name = "anti lag lights",
-
-Callback = function(v)
-antiLag = v
-end
-
-})
-
-
-Workspace.DescendantAdded:Connect(function(v)
-
-if antiLag then
-
-if v:IsA("PointLight")
-or v:IsA("SpotLight")
-or v:IsA("SurfaceLight")
-then
-
-v.Enabled = false
-
-end
-
-end
-
-end)
-
---------------------------------------------------
--- TOOLS
+-- TOOLS TAB
 --------------------------------------------------
 
 local ToolsTab =
 Window:MakeTab({
 
 Title = "Tools",
-
 Icon = "Axe"
 
 })
@@ -860,10 +795,15 @@ Name = "get Couch",
 
 Callback = function()
 
+local args = {
+"PickingTools",
+"Couch"
+}
+
 ReplicatedStorage
 :WaitForChild("RE")
 :WaitForChild("1Too1l")
-:InvokeServer("PickingTools","Couch")
+:InvokeServer(unpack(args))
 
 end
 
@@ -879,9 +819,7 @@ local tool =
 Instance.new("Tool")
 
 tool.RequiresHandle = false
-
 tool.Name = "tp tool"
-
 
 tool.Activated:Connect(function()
 
@@ -894,7 +832,6 @@ CFrame.new(mouse.Hit.Position)
 
 end)
 
-
 tool.Parent =
 LocalPlayer.Backpack
 
@@ -903,14 +840,13 @@ end
 })
 
 --------------------------------------------------
--- DISCORD
+-- DISCORD TAB
 --------------------------------------------------
 
 local DiscordTab =
 Window:MakeTab({
 
 Title = "Discord",
-
 Icon = "MessageCircle"
 
 })
@@ -920,20 +856,19 @@ DiscordTab:AddDiscordInvite({
 Title = "redz Hub | Community",
 
 Description =
-"lorenzo hub sigma.",
+"A community for redz Hub Users",
 
 Banner =
-"rbxassetid://14571108083",
+"rbxassetid://17382040552",
 
 Logo =
-"rbxassetid://91117931532624",
+"rbxassetid://17382040552",
 
 Invite =
 "https://discord.gg/redz-hub",
 
-Members = ???,
-
-Online = 2 admins online
+Members = 470000,
+Online = 20000
 
 })
 
@@ -944,9 +879,7 @@ Online = 2 admins online
 Window:Notify({
 
 Title = "Lorenzo hub",
-
 Content = "loaded",
-
 Duration = 5
 
 })
