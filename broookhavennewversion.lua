@@ -1,16 +1,40 @@
 local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
 
 local Window = WindUI:CreateWindow({
-    Title = "XFIREX HUB--- brookhaven",
-    Author = "by lorenzo and JX1",
+    Title = "XFIREX HUB ---BROOKHAVEN",
+    Author = "by lorenzo noob and JX1",
     Folder = "LorenzoHub",
-    Icon = "door-open",
+    Icon = "zap",
     Theme = "Dark",
     ToggleKey = Enum.KeyCode.RightShift,
-    Size = UDim2.fromOffset(680, 460)
+    Size = UDim2.fromOffset(680, 460),
+
+    -- ===== PARTE 1: BACKGROUND (somente com ID, sem vídeo) =====
+    Background = "rbxassetid://5191098747",  -- <-- SUBSTITUA PELO ID DA IMAGEM
+
+    -- ===== PARTE 2: USER =====
+    User = {
+        Enabled = true,
+        Anonymous = false,
+        Callback = function()
+            print(":D")
+        end,
+    },
+
+    -- ===== PARTE 3: KEY SYSTEM =====
+    KeySystem = {
+        Key = { "1234", "5678" },   -- <-- SUBSTITUA PELAS CHAVES VÁLIDAS
+        Note = "key pls >:[.",
+        Thumbnail = {
+            Image = "rbxassetid://5191098747",  -- <-- ID DA MINIATURA
+            Title = "KEY System",
+        },
+        URL = "https://discord.gg/redz-hub",  -- <-- LINK PARA OBTER A CHAVE
+        SaveKey = false,
+    },
 })
 
--- ========== ABAS COM ÍCONES CORRETOS ==========
+-- ========== ABAS (ícones compatíveis) ==========
 local MainTab     = Window:Tab({ Title = "Main",     Icon = "home" })
 local SoundTab    = Window:Tab({ Title = "Sound",    Icon = "music" })
 local ConfigTab   = Window:Tab({ Title = "Config",   Icon = "sliders" })
@@ -84,12 +108,11 @@ MainTab:Button({
     end
 })
 
--- Fling Player
+-- Fling Player (completo)
 MainTab:Button({
     Title = "fling player",
     Callback = function()
         if not selectedPlayer then return end
-
         RE["1Too1l"]:InvokeServer("PickingTools", "Couch")
         local TOOL_NAME = "Couch"
         local ativo = true
@@ -195,7 +218,6 @@ if not getgenv().Network then
         BaseParts = {},
         Velocity = Vector3.new(14.4626, 14.4626, 14.4626)
     }
-
     Network.RetainPart = function(part)
         if part:IsA("BasePart") and part:IsDescendantOf(Workspace) then
             table.insert(Network.BaseParts, part)
@@ -203,7 +225,6 @@ if not getgenv().Network then
             part.CanCollide = false
         end
     end
-
     RunService.Heartbeat:Connect(function()
         sethiddenproperty(LocalPlayer, "SimulationRadius", math.huge)
         for _, part in pairs(Network.BaseParts) do
@@ -296,6 +317,8 @@ local audioLoop = false
 
 SoundTab:Input({
     Title = "Audio ID",
+    Type = "Input",
+    Placeholder = "Digite o ID do áudio",
     Callback = function(text)
         audioID = text
     end
@@ -303,9 +326,8 @@ SoundTab:Input({
 
 SoundTab:Slider({
     Title = "Volume",
-    Min = 0.1,
-    Max = 0.8,
-    Value = 0.5,
+    Step = 0.1,
+    Value = { Min = 0.1, Max = 0.8, Default = 0.5 },
     Callback = function(v)
         audioVolume = v
     end
@@ -349,9 +371,7 @@ local jump = 50
 
 ConfigTab:Slider({
     Title = "speed",
-    Min = 16,
-    Max = 200,
-    Value = 16,
+    Value = { Min = 16, Max = 200, Default = 16 },
     Callback = function(v)
         speed = v
     end
@@ -359,9 +379,7 @@ ConfigTab:Slider({
 
 ConfigTab:Slider({
     Title = "jump",
-    Min = 50,
-    Max = 200,
-    Value = 50,
+    Value = { Min = 50, Max = 200, Default = 50 },
     Callback = function(v)
         jump = v
     end
@@ -441,18 +459,18 @@ UIConfigTab:Toggle({
     end
 })
 
-local currentKey = Enum.KeyCode.RightShift
+local currentKey = "RightShift"
 UIConfigTab:Keybind({
     Title = "Toggle UI Key",
     Value = "RightShift",
     Callback = function(v)
-        currentKey = typeof(v) == "EnumItem" and v or Enum.KeyCode[v]
-        Window:SetToggleKey(currentKey)
+        currentKey = v
+        Window:SetToggleKey(Enum.KeyCode[v])
     end
 })
 
 UserInputService.InputBegan:Connect(function(input)
-    if input.KeyCode == currentKey then
+    if input.KeyCode.Name == currentKey then
         Window:Toggle()
     end
 end)
