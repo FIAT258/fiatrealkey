@@ -4,13 +4,13 @@ local Window = WindUI:CreateWindow({
     Title = "XFIREX HUB ---BROOKHAVEN",
     Author = "by lorenzo noob and JX1",
     Folder = "LorenzoHub",
-    Icon = "zap",
+    Icon = "door-open",
     Theme = "Dark",
     ToggleKey = Enum.KeyCode.RightShift,
     Size = UDim2.fromOffset(680, 460),
 
     -- ===== PARTE 1: BACKGROUND (somente com ID, sem vídeo) =====
-    Background = "rbxassetid://5191098747",  -- <-- SUBSTITUA PELO ID DA IMAGEM
+    Background = "rbxassetid://133843871041283",  -- <-- SUBSTITUA PELO ID DA IMAGEM
 
     -- ===== PARTE 2: USER =====
     User = {
@@ -26,7 +26,7 @@ local Window = WindUI:CreateWindow({
         Key = { "1234", "5678" },   -- <-- SUBSTITUA PELAS CHAVES VÁLIDAS
         Note = "key pls >:[.",
         Thumbnail = {
-            Image = "rbxassetid://5191098747",  -- <-- ID DA MINIATURA
+            Image = "rbxassetid://6003957600",  -- <-- ID DA MINIATURA
             Title = "KEY System",
         },
         URL = "https://discord.gg/redz-hub",  -- <-- LINK PARA OBTER A CHAVE
