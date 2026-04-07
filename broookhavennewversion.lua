@@ -10,7 +10,7 @@ local Window = WindUI:CreateWindow({
     Size = UDim2.fromOffset(680, 460),
 
     -- ===== PARTE 1: BACKGROUND (somente com ID, sem vídeo) =====
-    Background = "rbxassetid://17492095818",  -- <-- SUBSTITUA PELO ID DA IMAGEM
+    Background = "rbxassetid://5188456160",  -- <-- SUBSTITUA PELO ID DA IMAGEM
 
     -- ===== PARTE 2: USER =====
     User = {
