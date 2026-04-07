@@ -31,14 +31,7 @@ local Window = WindUI:CreateWindow({
     Icon = "door-open",
     Theme = "Dark",
     ToggleKey = Enum.KeyCode.RightShift,
-    Size = UDim2.fromOffset(680, 460),
-    User = {
-        Enabled = true,
-        Anonymous = false,
-        Callback = function()
-            print("clicked")
-        end,
-Background = "rbxassetid://84973708912590",
+    Size = UDim2.fromOffset(680, 460)
 })
 
 --------------------------------------------------
@@ -528,6 +521,6 @@ DiscordTab:Button({
 --------------------------------------------------
 
 WindUI:Notify({
-    Title = "Lorenzo hub",
+    Title = "Xfirex hub load",
     Content = "loaded"
 })
