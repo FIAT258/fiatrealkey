@@ -10,7 +10,7 @@ local Window = WindUI:CreateWindow({
     Size = UDim2.fromOffset(680, 460),
 
     -- ===== PARTE 1: BACKGROUND (somente com ID, sem vídeo) =====
-    Background = "rbxassetid://113408685981266",  -- <-- SUBSTITUA PELO ID DA IMAGEM
+    Background = "rbxassetid://17492095818",  -- <-- SUBSTITUA PELO ID DA IMAGEM
 
     -- ===== PARTE 2: USER =====
     User = {
@@ -489,6 +489,6 @@ DiscordTab:Button({
 
 -- ========== NOTIFICAÇÃO INICIAL ==========
 WindUI:Notify({
-    Title = "Lorenzo hub",
+    Title = "XFIREX HUB bem vindo :3",
     Content = "loaded"
 })
