@@ -1,28 +1,4 @@
---------------------------------------------------
--- WIND UI (CARREGAMENTO COM VERIFICAÇÃO)
---------------------------------------------------
-
-local WindUI = loadstring(game:HttpGet(
-    "https://raw.githubusercontent.com/Footagesus/WindUI/main/dist/main.lua"
-))()
-
-if not WindUI then
-    warn("Falha ao carregar WindUI")
-    return
-end
-
-local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
-local Workspace = game:GetService("Workspace")
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local UserInputService = game:GetService("UserInputService")
-
-local LocalPlayer = Players.LocalPlayer
-local RE = ReplicatedStorage:WaitForChild("RE")
-
---------------------------------------------------
--- JANELA PRINCIPAL
---------------------------------------------------
+local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
 
 local Window = WindUI:CreateWindow({
     Title = "XFIREX HUB--- brookhaven",
@@ -34,21 +10,25 @@ local Window = WindUI:CreateWindow({
     Size = UDim2.fromOffset(680, 460)
 })
 
---------------------------------------------------
--- ABAS (ÍCONES CORRIGIDOS)
---------------------------------------------------
+-- ========== ABAS COM ÍCONES CORRETOS ==========
+local MainTab     = Window:Tab({ Title = "Main",     Icon = "home" })
+local SoundTab    = Window:Tab({ Title = "Sound",    Icon = "music" })
+local ConfigTab   = Window:Tab({ Title = "Config",   Icon = "sliders" })
+local ToolsTab    = Window:Tab({ Title = "Tools",    Icon = "tool" })
+local DiscordTab  = Window:Tab({ Title = "Discord",  Icon = "discord" })
+local UIConfigTab = Window:Tab({ Title = "UI Config", Icon = "settings" })
 
-local MainTab    = Window:Tab({ Title = "Main",    Icon = "home" })
-local SoundTab   = Window:Tab({ Title = "Sound",   Icon = "music" })
-local ConfigTab  = Window:Tab({ Title = "Config",  Icon = "sliders" })
-local ToolsTab   = Window:Tab({ Title = "Tools",   Icon = "tool" })
-local DiscordTab = Window:Tab({ Title = "Discord", Icon = "discord" })
-local UIConfigTab= Window:Tab({ Title = "UI Config", Icon = "settings" })
+-- ========== SERVIÇOS ==========
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local Workspace = game:GetService("Workspace")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local UserInputService = game:GetService("UserInputService")
 
---------------------------------------------------
--- PLAYER DROPDOWN (Main)
---------------------------------------------------
+local LocalPlayer = Players.LocalPlayer
+local RE = ReplicatedStorage:WaitForChild("RE")
 
+-- ========== MAIN TAB ==========
 local selectedPlayer = nil
 
 local function getPlayers()
@@ -76,10 +56,7 @@ Players.PlayerRemoving:Connect(function()
     PlayerDropdown:Refresh(getPlayers())
 end)
 
---------------------------------------------------
--- VIEW PLAYER (Main)
---------------------------------------------------
-
+-- View Player
 local viewing = false
 MainTab:Toggle({
     Title = "view player",
@@ -97,10 +74,7 @@ RunService.RenderStepped:Connect(function()
     end
 end)
 
---------------------------------------------------
--- GOTO PLAYER (Main)
---------------------------------------------------
-
+-- Goto Player
 MainTab:Button({
     Title = "goto player",
     Callback = function()
@@ -110,10 +84,7 @@ MainTab:Button({
     end
 })
 
---------------------------------------------------
--- FLING PLAYER (ORIGINAL) (Main)
---------------------------------------------------
-
+-- Fling Player
 MainTab:Button({
     Title = "fling player",
     Callback = function()
@@ -218,10 +189,7 @@ MainTab:Button({
     end
 })
 
---------------------------------------------------
--- BLACK HOLE (ORIGINAL) (Main)
---------------------------------------------------
-
+-- Black Hole (requer Network)
 if not getgenv().Network then
     getgenv().Network = {
         BaseParts = {},
@@ -321,10 +289,7 @@ MainTab:Toggle({
     end
 })
 
---------------------------------------------------
--- SOUND (SoundTab)
---------------------------------------------------
-
+-- ========== SOUND TAB ==========
 local audioID = ""
 local audioVolume = 0.5
 local audioLoop = false
@@ -378,10 +343,7 @@ SoundTab:Toggle({
     end
 })
 
---------------------------------------------------
--- CONFIG (ConfigTab)
---------------------------------------------------
-
+-- ========== CONFIG TAB ==========
 local speed = 16
 local jump = 50
 
@@ -423,10 +385,7 @@ ConfigTab:Toggle({
     end
 })
 
---------------------------------------------------
--- TOOLS (ToolsTab)
---------------------------------------------------
-
+-- ========== TOOLS TAB ==========
 ToolsTab:Button({
     Title = "get Couch",
     Callback = function()
@@ -450,10 +409,7 @@ ToolsTab:Button({
     end
 })
 
---------------------------------------------------
--- UI CONFIG (UIConfigTab)
---------------------------------------------------
-
+-- ========== UI CONFIG TAB ==========
 UIConfigTab:Dropdown({
     Title = "Theme",
     Values = (function()
@@ -488,7 +444,7 @@ UIConfigTab:Toggle({
 local currentKey = Enum.KeyCode.RightShift
 UIConfigTab:Keybind({
     Title = "Toggle UI Key",
-    Value = currentKey,
+    Value = "RightShift",
     Callback = function(v)
         currentKey = typeof(v) == "EnumItem" and v or Enum.KeyCode[v]
         Window:SetToggleKey(currentKey)
@@ -501,10 +457,7 @@ UserInputService.InputBegan:Connect(function(input)
     end
 end)
 
---------------------------------------------------
--- DISCORD (DiscordTab)
---------------------------------------------------
-
+-- ========== DISCORD TAB ==========
 DiscordTab:Button({
     Title = "copy discord",
     Callback = function()
@@ -516,11 +469,8 @@ DiscordTab:Button({
     end
 })
 
---------------------------------------------------
--- NOTIFICAÇÃO INICIAL
---------------------------------------------------
-
+-- ========== NOTIFICAÇÃO INICIAL ==========
 WindUI:Notify({
-    Title = "Xfirex hub load",
+    Title = "Lorenzo hub",
     Content = "loaded"
 })
